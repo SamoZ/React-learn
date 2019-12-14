@@ -3,7 +3,9 @@
 项目分为三大块
 
 blog    --- 前端展示(SSR渲染)
+
 service --- 中端API接口(使用egg)
+
 admin   --- 后端SSR
 
 1.通过 `npx create-next-app blog` 生成项目
