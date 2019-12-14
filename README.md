@@ -6,7 +6,7 @@ blog    --- 前端展示(SSR渲染)
 
 service --- 中端API接口(使用egg)
 
-admin   --- 后端SSR
+admin   --- 后端(React)
 
 
 
