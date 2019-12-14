@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Header from '../components/Header';
+import Author from '../components/Author';
+import Advert from '../components/Advert';
+import Footer from '../components/Footer';
 import { Row, Col, List, Icon } from 'antd';
 
 import '../public/style/pages/index.css';
@@ -76,9 +79,11 @@ const Home = () => {
 					</div>
 				</Col>
 				<Col className="comm-right" xs={0} sm={0} md={7} lg={5} xl={4}>
-					右侧
+					<Author></Author>
+					<Advert></Advert>
 				</Col>
 			</Row>
+			<Footer></Footer>
 		</>
 	);
 };
