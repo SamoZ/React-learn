@@ -4,10 +4,16 @@ const Advert = () => {
     return (
         <div className="ad-div comm-box">
             <div>
-                <img src="http://b-ssl.duitang.com/uploads/item/201604/06/20160406130800_4miua.thumb.700_0.jpeg" alt="" width="100%" />
-                <img src="http://b-ssl.duitang.com/uploads/item/201604/06/20160406130800_4miua.thumb.700_0.jpeg" alt="" width="100%" />
-                <img src="http://b-ssl.duitang.com/uploads/item/201604/06/20160406130800_4miua.thumb.700_0.jpeg" alt="" width="100%" />
-                <img src="http://b-ssl.duitang.com/uploads/item/201604/06/20160406130800_4miua.thumb.700_0.jpeg" alt="" width="100%" />
+                <img src="http://g.hiphotos.baidu.com/zhidao/pic/item/ac6eddc451da81cb2f68749d5366d016082431d7.jpg" alt="" width="100%" />
+            </div>
+            <div>
+                <img src="http://g.hiphotos.baidu.com/zhidao/pic/item/ac6eddc451da81cb2f68749d5366d016082431d7.jpg" alt="" width="100%" />
+            </div>
+            <div>
+                <img src="http://g.hiphotos.baidu.com/zhidao/pic/item/ac6eddc451da81cb2f68749d5366d016082431d7.jpg" alt="" width="100%" />
+            </div>
+            <div>
+                <img src="http://g.hiphotos.baidu.com/zhidao/pic/item/ac6eddc451da81cb2f68749d5366d016082431d7.jpg" alt="" width="100%" />
             </div>
         </div>
     )
