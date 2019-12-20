@@ -89,6 +89,20 @@ function AddArticle(props) {
 			}).then(res => {
 				setArticleId(res.data.insertId);
 				if (res.data.isSuccess) {
+					message.success('文章添加成功');
+				} else {
+					message.error('文章添加失败');
+				}
+			})
+		} else {
+			dataProps.id = articleId;
+			axios({
+				method: 'POST',
+				url: servicePath.updateArticle,
+				data: dataProps,
+				withCredentials: true
+			}).then(res => {
+				if (res.data.isSuccess) {
 					message.success('文章保存成功');
 				} else {
 					message.error('文章保存失败');
