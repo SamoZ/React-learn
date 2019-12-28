@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import marked from 'marked';
 import axios from 'axios';
 import servicePath from '../config/apiUrl';
+import * as moment from 'moment';
 
 import { Row, Col, Input, Select, Button, DatePicker, message } from 'antd';
 
@@ -24,6 +25,12 @@ function AddArticle(props) {
 
 	useEffect(() => {
 		getTypeInfo();
+		// 获取文章的 id
+		let tempId = props.match.params.id;
+		if (tempId) {
+			setArticleId(tempId);
+			getArticleById(tempId);
+		}
 	}, []);
 
 	marked.setOptions({
@@ -76,10 +83,10 @@ function AddArticle(props) {
 		dataProps.article_content = articleContent;
 		dataProps.introduce = introducemd;
 		let dataText = showDate.replace('-', '/');
-		dataProps.addTime = (new Date(dataText).getTime()) / 1000;
+		dataProps.addTime = new Date(dataText).getTime() / 1000;
 
 		if (articleId === 0) {
-			console.log('articleId=:'+articleId)
+			console.log('articleId=:' + articleId);
 			dataProps.view_count = 0;
 			axios({
 				method: 'POST',
@@ -93,7 +100,7 @@ function AddArticle(props) {
 				} else {
 					message.error('文章添加失败');
 				}
-			})
+			});
 		} else {
 			dataProps.id = articleId;
 			axios({
@@ -107,7 +114,7 @@ function AddArticle(props) {
 				} else {
 					message.error('文章保存失败');
 				}
-			})
+			});
 		}
 	};
 
@@ -117,13 +124,31 @@ function AddArticle(props) {
 			url: servicePath.getTypeInfo,
 			withCredentials: true
 		}).then(res => {
-			console.log(res);
+			console.log('getTypeInfo: ', res);
 			if (res.data.data === '未登录') {
 				localStorage.removeItem('openId');
 				props.history.push('/');
 			} else {
 				setTypeInfo(res.data.data);
 			}
+		});
+	};
+
+	const getArticleById = id => {
+		axios(servicePath.getArticleById + id, {
+			withCredentials: true
+		}).then(res => {
+			console.log('getArticleById: ', res);
+			const articleInfo = res.data.data[0];
+			setArticleTitle(articleInfo.title);
+			setArticleContent(articleInfo.article_content);
+			const html = marked(articleInfo.article_content);
+			setMarkdownContent(html);
+			setIntroducemd(articleInfo.introduce);
+			const tempInt = marked(articleInfo.introduce);
+			setIntroducehtml(tempInt);
+			setShowDate(articleInfo.addTime);
+			setSelectType(articleInfo.typeId);
 		});
 	};
 
@@ -146,6 +171,7 @@ function AddArticle(props) {
 							<Select
 								defaultValue={selectedType}
 								size="large"
+								value={selectedType}
 								onChange={selectTypeHandler}
 							>
 								{typeInfo.map((item, index) => {
@@ -164,6 +190,7 @@ function AddArticle(props) {
 								className="markdown-content"
 								rows={35}
 								placeholder="文章内容"
+								value={articleContent}
 								onChange={changeContent}
 							/>
 						</Col>
@@ -193,6 +220,7 @@ function AddArticle(props) {
 							<TextArea
 								rows={4}
 								placeholder="文章简介"
+								value={introducemd}
 								onChange={changeIntroduce}
 							/>
 							<br />
@@ -209,6 +237,7 @@ function AddArticle(props) {
 								<DatePicker
 									placeholder="发布日期"
 									size="large"
+									value={moment(showDate)}
 									onChange={(data, dataString) => {
 										setShowDate(dataString);
 									}}
